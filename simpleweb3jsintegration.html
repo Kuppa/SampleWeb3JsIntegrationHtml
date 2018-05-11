@@ -1,0 +1,178 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Header</title>
+	<style>
+	  body{
+	    background-color:#f0f0f0;
+		overlow-x:hidden;
+		overflow:auto;
+		font-size:14px;
+		color:#454545;
+		margin: 0px;
+	  }
+	  .button{display:inline-block;padding:6px 12px;margin-bottom:0;font-size:14px;font-weight:400;line-height:1.42857143;text-align:center;white-space:nowrap;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-image:none;border:1px solid transparent;border-radius:4px;min-width:200px;
+	  }
+	  .button_red{color:#fff;background-color:#d9534f;border-color:#d43f3a}
+	  .button_green{color:#fff;background-color:#5cb85c;border-color:#4cae4c}
+	  .button_blue{color:#fff;background-color:#5bc0de;border-color:#46b8da}
+	  .button_orange{color:#fff;background-color:#f0ad4e;border-color:#eea236}
+	  .header{
+	background-color: #222;
+	min-height: 63px;
+	color: #fff;
+	margin: auto;
+	text-align: center;
+	/* padding: 10px 10px 10px 10px; */
+	position:fixed;
+	width:100%;
+	left:0;
+	right:0;
+	top:0;
+	z-index:1;
+}
+.footer {
+	background-color: #222;
+	min-height: 63px;
+	color: #fff;
+	margin: auto;
+	text-align: center;
+	/* padding: 10px 10px 10px 10px; */
+	position:fixed;
+	width:100%;
+	left:0;
+	right:0;
+	bottom:0;
+	z-index:1;
+}
+.header span, .footer span {
+	font-size: 24px;
+	display: block;
+	/* margin-top: 10px; */
+	padding-top: 15px;
+}
+.inner_container {
+	width: 100%;
+	margin: auto;
+	text-align: center;
+	margin-top: 374px;
+	position:relative;
+}
+.inner_container .button {
+	display: block;
+	margin: auto;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+	</style>
+	</head>
+	<body>
+	   <div class="header">
+	       <span>Sample web3js integration</span>
+	   </div>
+	    <div class="inner_container">
+			<h2> Implement Your own UI to perform the the operations that specified in your smart contract
+			</h2>
+	    </div>
+	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Adding global web3 js into our html file -->
+<script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+
+<script>
+
+	
+    if (typeof web3 !== 'undefined') {
+	        // This will connect your metamask if you are on the metamask
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            // If there is no metamask, still you can connect test nets like ropston or your localhost
+            web3 = new Web3(new Web3.providers.HttpProvider("You can give test net like ropston or your own localhost"));
+        }
+		// This will get your connected network address
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+        console.log(web3.eth.accounts);
+	// This is abi(Application binary interface) where you can get this abi by deploying the smartcontract in remix ide. The mentioned abi the default abi from remix ide.
+	
+	var abi = [
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "to",
+				"type": "address"
+			}
+		],
+		"name": "delegate",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "winningProposal",
+		"outputs": [
+			{
+				"name": "_winningProposal",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "toVoter",
+				"type": "address"
+			}
+		],
+		"name": "giveRightToVote",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "toProposal",
+				"type": "uint8"
+			}
+		],
+		"name": "vote",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"name": "_numProposals",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	}
+];
+	
+		
+        var smart_contract = web3.eth.contract(abi);
+
+        var deploy_contract = smart_contract.at('0xf0ca50da4ff294c2169b809e4d2b9de162c3df74');
+        console.log(deploy_contract);
+</script>
+
+</html>
